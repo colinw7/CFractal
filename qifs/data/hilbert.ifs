@@ -1,0 +1,47 @@
+Control
+  Depth     3
+  Angle     r--r 1
+  Direction --rr 1
+End
+
+Initiator
+  Move 10.0 10.0
+  Turn 90.0
+  Step 80.0
+End
+
+Generator
+  Depth d
+  Calc  x=1.0/(2**(d+1)-1.0)
+  Calc  y=(1.0-x)/2.0
+  Turn  -90.0
+  StepV y
+  Depth d
+  Calc  x=1.0/(2**(d+1)-1.0)
+  Calc  y=(1.0-x)/2.0
+  DrawV x
+  Turn   90.0
+  StepV y
+  Depth d
+  Calc  x=1.0/(2**(d+1)-1.0)
+  Calc  y=(1.0-x)/2.0
+  DrawV x
+  StepV y
+  Depth d
+  Calc  x=1.0/(2**(d+1)-1.0)
+  Calc  y=(1.0-x)/2.0
+  Turn   90.0
+  DrawV x
+  StepV y
+  Turn  -90.0
+End
+
+Draw
+  Turn -90.0
+  Step   1.0
+  Turn  90.0
+  Step   1.0
+  Turn  90.0
+  Step   1.0
+  Turn -90.0
+End

@@ -1,0 +1,31 @@
+Control
+  Depth     2
+  Direction -r-rr-rr-r- 1
+  Angle     r----rrr-r- 1
+End
+
+Initiator
+  Move  20.0 50.0-10.0*sqrt(3.0)
+  Step  60.0
+End
+
+Generator
+  Turn    60.0
+  Step 1.0/3.0
+  Step 1.0/3.0
+  Turn   -60.0
+  Step 1.0/3.0
+  Turn   -60.0
+  Step 1.0/3.0
+  Turn  -150.0
+  Step 1.0/(3.0*sqrt(3.0))
+  Step 1.0/(3.0*sqrt(3.0))
+  Turn    60.0
+  Step 1.0/(3.0*sqrt(3.0))
+  Turn    60.0
+  Step 1.0/(3.0*sqrt(3.0))
+  Step 1.0/(3.0*sqrt(3.0))
+  Turn    90.0
+  Step 1.0/3.0
+  Step 1.0/3.0
+End

@@ -1,0 +1,19 @@
+Control
+  Angle     r- 1
+  Direction -- 1
+  Angle     r--r 2
+  Direction ---- 2
+End
+
+Initiator
+  Move 10.0 10.0
+  Step 80.0
+End
+
+Generator
+  Turn  45.0
+  Step  1.0/sqrt(2)
+  Turn -90.0
+  Step  1.0/sqrt(2)
+  Turn  45.0
+End

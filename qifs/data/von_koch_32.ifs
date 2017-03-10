@@ -1,0 +1,72 @@
+Initiator
+  Move 25.0 25.0
+  Step 50.0
+  Turn 90.0
+  Step 50.0
+  Turn 90.0
+  Step 50.0
+  Turn 90.0
+  Step 50.0
+  Turn 90.0
+End
+
+Generator
+  Turn  90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn -90.00
+  Step  1.0/8.0
+  Turn  90.00
+  Step  1.0/8.0
+  Turn -90.00
+End

@@ -1,0 +1,32 @@
+Control
+  Depth 3
+  Angle rr 1
+  Angle -- 2
+  Angle -- 3
+  Angle -- 4
+  Angle -- 5
+  Angle -- 6
+  Angle -- 7
+  Angle -- 8
+  Angle -- 9
+  Angle -- 10
+  Angle -- 11
+  Angle -- 12
+  Angle -- 13
+  Angle -- 14
+  Angle -- 15
+  Angle rr 16
+End
+
+Initiator
+  Move 25.0 25.0
+  Step 50.0
+End
+
+Generator
+  Turn  45.0
+  Step  1.0/sqrt(2)
+  Turn -90.0
+  Step  1.0/sqrt(2)
+  Turn  45.0
+End

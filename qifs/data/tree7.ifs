@@ -1,0 +1,71 @@
+Initiator
+  Move 50.0 0.0
+  Turn 90.0
+  Step 10.0 I
+End
+
+Generator I
+  Step 0.77 R
+  Step 0.77 L
+  Draw 0.77
+  Draw 0.77
+  Draw 0.77
+End
+
+Generator R
+  Save
+  Turn -18
+  Turn -18
+  Turn -18
+  Step 0.77 X
+  Restore
+  Save
+  Turn 18
+  Turn 18
+  Turn 18
+  Step 0.77 X
+  Restore
+  Step 0.77 T
+  Step 0.77 R
+End
+
+Generator L
+  Save
+  Turn 18
+  Draw 0.77
+  Draw 0.77
+  Draw 0.77
+  Restore
+  Save
+  Turn -18
+  Draw 0.77
+  Draw 0.77
+  Draw 0.77
+  Restore
+  Draw 0.77
+End
+
+Generator X
+  Turn -18
+  Step 0.77 Y
+  Save
+  Turn 18
+  Step 0.77 X
+  Restore
+  Step 0.77 L
+End
+
+Generator Y
+  Turn 18
+  Step 0.77 X
+  Save
+  Turn -18
+  Step 0.77 Y
+  Restore
+  Step 0.77 L
+End
+
+Generator T
+  Step 0.77 T
+  Step 0.77 L
+End

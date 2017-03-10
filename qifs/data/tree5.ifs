@@ -1,0 +1,26 @@
+Initiator
+  Move 50.0 0.0
+  Turn 90.0
+  Step 30.0
+End
+
+Generator
+  Draw 0.5
+  Turn 22.7
+  Save
+  Save
+  Step 0.5
+  Restore
+  Turn -22.7
+  Step 0.5
+  Restore
+  Turn -22.7
+  Draw 0.5
+  Save
+  Turn -22.7
+  Draw 0.5
+  Step 0.5
+  Restore
+  Turn 22.7
+  Step 0.5
+End

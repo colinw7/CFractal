@@ -1,0 +1,24 @@
+Initiator
+  Move 40.0 25.0
+  Step 25.0
+  Turn 60.0
+  Step 25.0
+  Turn 60.0
+  Step 25.0
+  Turn 60.0
+  Step 25.0
+  Turn 60.0
+  Step 25.0
+  Turn 60.0
+  Step 25.0
+End
+
+Generator
+  Turn  20.0
+  Step 1.0/sqrt(7.0)
+  Turn -60.0
+  Step 1.0/sqrt(7.0)
+  Turn  60.0
+  Step 1.0/sqrt(7.0)
+  Turn -20
+End

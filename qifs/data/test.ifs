@@ -1,0 +1,34 @@
+Initiator
+  Color brown
+  Move 50.0 5.0
+  Turn 90.0
+  Step 70.0 A
+End
+
+Generator A
+  Draw 0.3
+  Save
+  Color #00FF00
+  Turn 60
+  Step 0.7 B
+  Restore
+  Save
+  Color #00AA00
+  Turn -60
+  Step 0.7 B
+  Restore
+End
+
+Generator B
+  Draw 0.3
+  Save
+  Color #00FF00
+  Turn 40
+  Step 0.7 A
+  Restore
+  Save
+  Color #00AA00
+  Turn -40
+  Step 0.7 A
+  Restore
+End
