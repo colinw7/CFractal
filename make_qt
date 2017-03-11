@@ -1,0 +1,15 @@
+#!/bin/csh -f
+
+set cdir = `pwd`
+
+foreach dir (qt_*)
+  cd $cdir/$dir
+
+  qmake
+
+  #make clean
+
+  make
+end
+
+exit 0

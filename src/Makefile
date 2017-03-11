@@ -12,9 +12,15 @@ LIB_DIR = ../lib
 all: $(LIB_DIR)/libCFractal.a
 
 SRC = \
+CBarnsley.cpp \
+CBifuricationLib.cpp \
+CCircles.cpp \
 CColorRange.cpp \
 CDragon.cpp \
 CDragonCurve.cpp \
+CDragonOutline.cpp \
+CDrawTree.cpp \
+CIfs.cpp \
 CJulia.cpp \
 CLorenz.cpp \
 CLorenzCalc.cpp \
@@ -29,12 +35,16 @@ CPickover2D.cpp \
 CPickoverCalc.cpp \
 CPointFractal.cpp \
 CPointFractalRenderer.cpp \
+CSierpinski.cpp \
+CTranscendental.cpp \
+CTurtle.cpp \
 
 OBJS = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
 
 CPPFLAGS = \
 -std=c++11 \
 -I$(INC_DIR) \
+-I../../CCeil/include \
 -I../../CRenderer/include \
 -I../../CImageLib/include \
 -I../../CFont/include \
@@ -43,6 +53,7 @@ CPPFLAGS = \
 -I../../CFile/include \
 -I../../CRGBName/include \
 -I../../CStrUtil/include \
+-I../../CGlob/include \
 -I../../COS/include \
 -I../../CUtil/include \
 

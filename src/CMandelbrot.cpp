@@ -1,6 +1,5 @@
 #include <CMandelbrot.h>
 #include <CMathGen.h>
-#include <cmath>
 
 CMandelbrot::
 CMandelbrot() :
@@ -59,7 +58,7 @@ calc_iterations(double x, double y, int max_iterations) const
   int color = 254*num_iterations/(max_iterations - 1) + 1;
 
   if (show_vector_) {
-    double angle = atan2(zr_, zi_);
+    double angle = CMathGen::atan2(zr_, zi_);
 
     if (angle >= M_PI)
       color = 256 - color;
