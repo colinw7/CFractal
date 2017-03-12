@@ -6,14 +6,14 @@ class CXNewton : public CXPointFractal {
   CXNewton();
 };
 
-static CXNewton *julia = NULL;
+static CXNewton *newton = nullptr;
 
 int
 main(int, char **)
 {
-  julia = new CXNewton;
+  newton = new CXNewton;
 
-  julia->map();
+  newton->map();
 
   CXMachineInst->mainLoop();
 
