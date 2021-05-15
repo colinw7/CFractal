@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -std=c++14 -O2 -fPIC -Wall -W -D_REENTRANT $(DEFINES)
-INCPATH       = -I. -I. -I../qinclude -I../include -I../../CQUtil/include -I../../CFont/include -I../../CImageLib/include -I../../CFile/include -I../../CUtil/include -I../../CMath/include -I../../CStrUtil/include -I../../CConfig/include -I../../CRegExp/include -I../../COS/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I.moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I. -I../qinclude -I../include -I../../CQColors/include -I../../CQUtil/include -I../../CFont/include -I../../CImageLib/include -I../../CFile/include -I../../CUtil/include -I../../CMath/include -I../../CStrUtil/include -I../../CConfig/include -I../../CRegExp/include -I../../COS/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I.moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -49,25 +49,9 @@ OBJECTS_DIR   = ../obj/
 
 ####### Files
 
-SOURCES       = CQPointFractal.cpp \
-		CQColors.cpp \
-		CQColorsDefPalettes.cpp \
-		CQColorsDefThemes.cpp \
-		CQColorsPalette.cpp \
-		CQColorsTheme.cpp .moc/moc_CQPointFractal.cpp \
-		.moc/moc_CQColors.cpp \
-		.moc/moc_CQColorsPalette.cpp \
-		.moc/moc_CQColorsTheme.cpp
+SOURCES       = CQPointFractal.cpp .moc/moc_CQPointFractal.cpp
 OBJECTS       = ../obj/CQPointFractal.o \
-		../obj/CQColors.o \
-		../obj/CQColorsDefPalettes.o \
-		../obj/CQColorsDefThemes.o \
-		../obj/CQColorsPalette.o \
-		../obj/CQColorsTheme.o \
-		../obj/moc_CQPointFractal.o \
-		../obj/moc_CQColors.o \
-		../obj/moc_CQColorsPalette.o \
-		../obj/moc_CQColorsTheme.o
+		../obj/moc_CQPointFractal.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -160,18 +144,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		CQFractal.pro ../qinclude/CQPointFractal.h \
-		CCubeHelix.h \
-		CQColorsDefPalettes.h \
-		CQColorsDefThemes.h \
-		CQColors.h \
-		CQColorsPalette.h \
-		CQColorsTheme.h CQPointFractal.cpp \
-		CQColors.cpp \
-		CQColorsDefPalettes.cpp \
-		CQColorsDefThemes.cpp \
-		CQColorsPalette.cpp \
-		CQColorsTheme.cpp
+		CQFractal.pro ../qinclude/CQPointFractal.h CQPointFractal.cpp
 QMAKE_TARGET  = CQFractal
 DESTDIR       = ../lib/
 TARGET        = libCQFractal.a
@@ -390,8 +363,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../qinclude/CQPointFractal.h CCubeHelix.h CQColorsDefPalettes.h CQColorsDefThemes.h CQColors.h CQColorsPalette.h CQColorsTheme.h $(DISTDIR)/
-	$(COPY_FILE) --parents CQPointFractal.cpp CQColors.cpp CQColorsDefPalettes.cpp CQColorsDefThemes.cpp CQColorsPalette.cpp CQColorsTheme.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../qinclude/CQPointFractal.h $(DISTDIR)/
+	$(COPY_FILE) --parents CQPointFractal.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -423,32 +396,16 @@ compiler_moc_predefs_clean:
 .moc/moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -std=c++14 -O2 -fPIC -Wall -W -dM -E -o .moc/moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: .moc/moc_CQPointFractal.cpp .moc/moc_CQColors.cpp .moc/moc_CQColorsPalette.cpp .moc/moc_CQColorsTheme.cpp
+compiler_moc_header_make_all: .moc/moc_CQPointFractal.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) .moc/moc_CQPointFractal.cpp .moc/moc_CQColors.cpp .moc/moc_CQColorsPalette.cpp .moc/moc_CQColorsTheme.cpp
+	-$(DEL_FILE) .moc/moc_CQPointFractal.cpp
 .moc/moc_CQPointFractal.cpp: ../qinclude/CQPointFractal.h \
 		../../CUtil/include/CRGBA.h \
 		../../CUtil/include/CRGB.h \
 		../../CUtil/include/CRGBName.h \
 		.moc/moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/colinw/git/CFractal/qsrc/.moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qinclude -I/home/colinw/git/CFractal/include -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CFont/include -I/home/colinw/git/CImageLib/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CUtil/include -I/home/colinw/git/CMath/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CConfig/include -I/home/colinw/git/CRegExp/include -I/home/colinw/git/COS/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../qinclude/CQPointFractal.h -o .moc/moc_CQPointFractal.cpp
-
-.moc/moc_CQColors.cpp: CQColors.h \
-		../../CUtil/include/COrderedMap.h \
-		.moc/moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/colinw/git/CFractal/qsrc/.moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qinclude -I/home/colinw/git/CFractal/include -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CFont/include -I/home/colinw/git/CImageLib/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CUtil/include -I/home/colinw/git/CMath/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CConfig/include -I/home/colinw/git/CRegExp/include -I/home/colinw/git/COS/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include CQColors.h -o .moc/moc_CQColors.cpp
-
-.moc/moc_CQColorsPalette.cpp: CQColorsPalette.h \
-		.moc/moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/colinw/git/CFractal/qsrc/.moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qinclude -I/home/colinw/git/CFractal/include -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CFont/include -I/home/colinw/git/CImageLib/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CUtil/include -I/home/colinw/git/CMath/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CConfig/include -I/home/colinw/git/CRegExp/include -I/home/colinw/git/COS/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include CQColorsPalette.h -o .moc/moc_CQColorsPalette.cpp
-
-.moc/moc_CQColorsTheme.cpp: CQColorsTheme.h \
-		.moc/moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/colinw/git/CFractal/qsrc/.moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qinclude -I/home/colinw/git/CFractal/include -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CFont/include -I/home/colinw/git/CImageLib/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CUtil/include -I/home/colinw/git/CMath/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CConfig/include -I/home/colinw/git/CRegExp/include -I/home/colinw/git/COS/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include CQColorsTheme.h -o .moc/moc_CQColorsTheme.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/colinw/git/CFractal/qsrc/.moc/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qsrc -I/home/colinw/git/CFractal/qinclude -I/home/colinw/git/CFractal/include -I/home/colinw/git/CQColors/include -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CFont/include -I/home/colinw/git/CImageLib/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CUtil/include -I/home/colinw/git/CMath/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CConfig/include -I/home/colinw/git/CRegExp/include -I/home/colinw/git/COS/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../qinclude/CQPointFractal.h -o .moc/moc_CQPointFractal.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -481,9 +438,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		../../CMath/include/CIPoint2D.h \
 		../../CMath/include/CMathUtil.h \
 		../../COS/include/COSNaN.h \
-		CQColors.h \
+		../../CQColors/include/CQColors.h \
 		../../CUtil/include/COrderedMap.h \
-		CQColorsPalette.h \
+		../../CQColors/include/CQColorsPalette.h \
 		../../CQUtil/include/CQUtil.h \
 		../../CUtil/include/CEvent.h \
 		../../CUtil/include/CKeyType.h \
@@ -503,49 +460,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 		../../CQUtil/include/CQUtilMeta.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQPointFractal.o CQPointFractal.cpp
 
-../obj/CQColors.o: CQColors.cpp CQColors.h \
-		../../CUtil/include/COrderedMap.h \
-		CQColorsTheme.h \
-		CQColorsPalette.h \
-		CQColorsDefPalettes.h \
-		CQColorsDefThemes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQColors.o CQColors.cpp
-
-../obj/CQColorsDefPalettes.o: CQColorsDefPalettes.cpp CQColorsDefPalettes.h \
-		CQColorsPalette.h \
-		CQColors.h \
-		../../CUtil/include/COrderedMap.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQColorsDefPalettes.o CQColorsDefPalettes.cpp
-
-../obj/CQColorsDefThemes.o: CQColorsDefThemes.cpp CQColorsDefThemes.h \
-		CQColorsTheme.h \
-		CQColors.h \
-		../../CUtil/include/COrderedMap.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQColorsDefThemes.o CQColorsDefThemes.cpp
-
-../obj/CQColorsPalette.o: CQColorsPalette.cpp CQColorsPalette.h \
-		CCubeHelix.h \
-		../../COS/include/COSNaN.h \
-		../../CMath/include/CMathUtil.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQColorsPalette.o CQColorsPalette.cpp
-
-../obj/CQColorsTheme.o: CQColorsTheme.cpp CQColorsTheme.h \
-		CQColors.h \
-		../../CUtil/include/COrderedMap.h \
-		CQColorsPalette.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQColorsTheme.o CQColorsTheme.cpp
-
 ../obj/moc_CQPointFractal.o: .moc/moc_CQPointFractal.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/moc_CQPointFractal.o .moc/moc_CQPointFractal.cpp
-
-../obj/moc_CQColors.o: .moc/moc_CQColors.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/moc_CQColors.o .moc/moc_CQColors.cpp
-
-../obj/moc_CQColorsPalette.o: .moc/moc_CQColorsPalette.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/moc_CQColorsPalette.o .moc/moc_CQColorsPalette.cpp
-
-../obj/moc_CQColorsTheme.o: .moc/moc_CQColorsTheme.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/moc_CQColorsTheme.o .moc/moc_CQColorsTheme.cpp
 
 ####### Install
 
