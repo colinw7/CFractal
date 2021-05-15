@@ -19,20 +19,6 @@ CPointFractalRenderer::
 {
 }
 
-bool
-CPointFractalRenderer::
-getShowVector() const
-{
-  return CPointFractal::getShowVector();
-}
-
-void
-CPointFractalRenderer::
-setShowVector(bool show_vector)
-{
-  CPointFractal::setShowVector(show_vector);
-}
-
 void
 CPointFractalRenderer::
 resetRange()
@@ -41,20 +27,6 @@ resetRange()
   ymin_ = calc_->getYMin();
   xmax_ = calc_->getXMax();
   ymax_ = calc_->getYMax();
-}
-
-void
-CPointFractalRenderer::
-conv(double px, double py, double *wx, double *wy)
-{
-  CPointFractal::conv(px, py, wx, wy);
-}
-
-void
-CPointFractalRenderer::
-iconv(double wx, double wy, double *px, double *py)
-{
-  CPointFractal::iconv(wx, wy, px, py);
 }
 
 void

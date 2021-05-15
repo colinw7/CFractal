@@ -1,5 +1,6 @@
 #include <CCircles.h>
 #include <CRGBName.h>
+#include <cmath>
 
 CCircles::NamedColor
 CCircles::colors[] = {

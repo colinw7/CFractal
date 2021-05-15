@@ -15,9 +15,22 @@ MOC_DIR = .moc
 # Input
 HEADERS += \
 ../qinclude/CQPointFractal.h \
+\
+CCubeHelix.h \
+CQColorsDefPalettes.h \
+CQColorsDefThemes.h \
+CQColors.h \
+CQColorsPalette.h \
+CQColorsTheme.h \
 
 SOURCES += \
 CQPointFractal.cpp \
+\
+CQColors.cpp \
+CQColorsDefPalettes.cpp \
+CQColorsDefThemes.cpp \
+CQColorsPalette.cpp \
+CQColorsTheme.cpp \
 
 OBJECTS_DIR = ../obj
 

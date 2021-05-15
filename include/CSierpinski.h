@@ -8,6 +8,8 @@ class CSierpinskiRenderer {
  public:
   CSierpinskiRenderer() { }
 
+  virtual ~CSierpinskiRenderer() { }
+
   virtual void clear(const CRGBA &bg) = 0;
 
   virtual void drawPoint(const CIPoint2D &p) = 0;

@@ -4,17 +4,24 @@
 #include <CThread.h>
 
 struct CPointFractalThreadData {
-  CPointFractal     *fractal;
-  int                pixel_xmin, pixel_ymin, pixel_xmax, pixel_ymax;
-  double             xmin, ymin, xmax, ymax;
-  int                pos;
-  int                xpos, ypos;
-  int                max_iterations;
-  int               *color;
-  CPointFractalCalc *calc;
+  CPointFractal*     fractal        { nullptr };
+  int                pixel_xmin     { 0 };
+  int                pixel_ymin     { 0 };
+  int                pixel_xmax     { 100 };
+  int                pixel_ymax     { 100 };
+  double             xmin           { 0.0 };
+  double             ymin           { 0.0 };
+  double             xmax           { 1.0 };
+  double             ymax           { 1.0 };
+  int                pos            { 0 };
+  int                xpos           { 0 };
+  int                ypos           { 0 };
+  int                max_iterations { 256 };
+  int*               color          { nullptr };
+  CPointFractalCalc* calc           { nullptr };
 };
 
-static void CPointFractalThreadDraw(void *d);
+static void *CPointFractalThreadDraw(void *d);
 
 //------
 
@@ -74,18 +81,8 @@ CPointFractal::
 draw(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
      double xmin, double ymin, double xmax, double ymax, int max_iterations)
 {
-  double a = calc_->getAngle();
-
-  s_ = sin(a);
-  c_ = cos(a);
-
-  transform_.setFrom(pixel_xmin, pixel_ymax, pixel_xmax, pixel_ymin);
-  transform_.setTo  (xmin, ymin, xmax, ymax);
-
-  calc_->setRange(xmin, ymin, xmax, ymax);
-
-  calc_->initCalc(pixel_xmin, pixel_ymin, pixel_xmax, pixel_ymax,
-                  xmin, ymin, xmax, ymax, max_iterations);
+  initTransform(pixel_xmin, pixel_ymin, pixel_xmax, pixel_ymax,
+                xmin, ymin, xmax, ymax, max_iterations);
 
   for (int j = pixel_ymin, jj = 0; j <= pixel_ymax; ++j, ++jj) {
     for (int i = pixel_xmin, ii = 0; i <= pixel_xmax; ++i, ++ii) {
@@ -96,7 +93,7 @@ draw(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
       int color = calc_->calc(x, y, max_iterations);
 
       if (color >= 0)
-        setForeground(colors_.getColor(color));
+        setForeground(color);
 
       drawPoint(i, j);
     }
@@ -138,18 +135,8 @@ threadDraw(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
 
   //----
 
-  double a = calc_->getAngle();
-
-  s_ = sin(a);
-  c_ = cos(a);
-
-  transform_.setFrom(pixel_xmin, pixel_ymax, pixel_xmax, pixel_ymin);
-  transform_.setTo  (xmin, ymin, xmax, ymax);
-
-  calc_->setRange(xmin, ymin, xmax, ymax);
-
-  calc_->initCalc(pixel_xmin, pixel_ymin, pixel_xmax, pixel_ymax,
-                  xmin, ymin, xmax, ymax, max_iterations);
+  initTransform(pixel_xmin, pixel_ymin, pixel_xmax, pixel_ymax,
+                xmin, ymin, xmax, ymax, max_iterations);
 
   color.resize(pixel_width*pixel_height);
 
@@ -182,7 +169,8 @@ threadDraw(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
     }
   }
 
-#ifndef NO_THREAD
+  //---
+
   std::vector<CThread> threads;
 
   threads.resize(n);
@@ -193,23 +181,21 @@ threadDraw(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
   // collect
   for (uint i = 0; i < n; ++i)
     threads[i].join();
-#else
-  for (uint i = 0; i < n; ++i)
-    CPointFractalThreadDraw((void *) &threadData[i]);
-#endif
+
+  //---
 
   for (uint iy = 0, i = 0; iy < ny; ++iy) {
     for (uint ix = 0; ix < nx; ++ix, ++i) {
       CPointFractalThreadData &data = threadData[i];
 
-      for (int y = data.pixel_ymin, pos = data.pos; y <= data.pixel_ymax; ++y) {
+      for (int yy = data.pixel_ymin, pos = data.pos; yy <= data.pixel_ymax; ++yy) {
         for (int x = data.pixel_xmin; x <= data.pixel_xmax; ++x, ++pos) {
           int color1 = color[pos];
 
           if (color1 >= 0)
-            setForeground(colors_.getColor(color1));
+            setForeground(color1);
 
-          drawPoint(x, y);
+          drawPoint(x, yy);
         }
       }
 
@@ -219,6 +205,34 @@ threadDraw(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
 }
 
 void
+CPointFractal::
+initTransform(int pixel_xmin, int pixel_ymin, int pixel_xmax, int pixel_ymax,
+              double xmin, double ymin, double xmax, double ymax, int max_iterations)
+{
+  double a = calc_->getAngle();
+
+  s_ = sin(a);
+  c_ = cos(a);
+
+  transform_.setFrom(pixel_xmin, pixel_ymax, pixel_xmax, pixel_ymin);
+  transform_.setTo  (xmin, ymin, xmax, ymax);
+
+  calc_->setRange(xmin, ymin, xmax, ymax);
+
+  calc_->initCalc(pixel_xmin, pixel_ymin, pixel_xmax, pixel_ymax,
+                  xmin, ymin, xmax, ymax, max_iterations);
+}
+
+void
+CPointFractal::
+setForeground(int color)
+{
+  setForeground(colors_.getColor(color));
+}
+
+//------
+
+void *
 CPointFractalThreadDraw(void *d)
 {
   CPointFractalThreadData *data = (CPointFractalThreadData *) d;
@@ -234,4 +248,6 @@ CPointFractalThreadDraw(void *d)
       data->color[pos] = data->calc->calc(x, y, data->max_iterations);
     }
   }
+
+  return 0;
 }

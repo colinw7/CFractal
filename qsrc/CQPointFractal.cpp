@@ -1,5 +1,7 @@
 #include <CQPointFractal.h>
 #include <CPointFractalRenderer.h>
+#include <CQColors.h>
+#include <CQColorsPalette.h>
 #include <CQUtil.h>
 
 #include <QPainter>
@@ -12,11 +14,15 @@ class CQPointFractalRenderer : public CPointFractalRenderer {
    CPointFractalRenderer(fractal), pf_(pf) {
   }
 
-  void setForeground(const CRGBA &rgba) {
+  void setForeground(int color) override {
+    pf_->setForeground(color);
+  }
+
+  void setForeground(const CRGBA &rgba) override {
     pf_->setForeground(rgba);
   }
 
-  void drawPoint(int x, int y) {
+  void drawPoint(int x, int y) override {
     pf_->drawPoint(x, y);
   }
 
@@ -28,8 +34,10 @@ class CQPointFractalRenderer : public CPointFractalRenderer {
 
 CQPointFractal::
 CQPointFractal(QWidget *parent) :
- QWidget(parent), renderer_(0), threaded_(true), redraw_(true), painter_(0), rubber_band_(0)
+ QWidget(parent)
 {
+  setPalette("plasma");
+
   setFocusPolicy(Qt::StrongFocus);
 }
 
@@ -225,6 +233,16 @@ resizeEvent(QResizeEvent *)
 
 void
 CQPointFractal::
+setForeground(int color)
+{
+  if (color == 0)
+    painter_->setPen(QColor());
+  else
+    painter_->setPen(palette_->getColor(color - 1, 255));
+}
+
+void
+CQPointFractal::
 setForeground(const CRGBA &rgba)
 {
   painter_->setPen(CQUtil::rgbaToColor(rgba));
@@ -296,4 +314,11 @@ redraw()
   redraw_ = true;
 
   update();
+}
+
+void
+CQPointFractal::
+setPalette(const QString &name)
+{
+  palette_ = CQColorsMgrInst->getNamedPalette(name);
 }

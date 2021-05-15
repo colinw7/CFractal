@@ -21,7 +21,7 @@ class CMandelbrot : public CPointFractalCalc {
                 double xmin=-2.0, double ymin=-1.2, double xmax=1.2, double ymax=1.2,
                 int max_iterations=1000);
 
-  int calc(double x, double y, int max_iterations) const;
+  int calc(double x, double y, int max_iterations=1000) const;
 
   int calc_iterations(double x, double y, int max_iterations) const;
   int calc_distance(double x, double y, int max_iterations) const;
@@ -31,10 +31,10 @@ class CMandelbrot : public CPointFractalCalc {
   double distance(double x, double y, int iterations) const;
 
  private:
-  bool   distance_;
-  double d_;
+  bool   distance_ { false };
+  double d_        { 0.0 };
 
-  mutable double              zr_, zi_;
+  mutable double              zr_ { 0.0 }, zi_ { 0.0 };
   mutable std::vector<double> save_x_;
   mutable std::vector<double> save_y_;
 };

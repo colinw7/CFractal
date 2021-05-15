@@ -1,5 +1,6 @@
 #include <CPharaoh.h>
 #include <CRGBName.h>
+#include <cmath>
 
 const char *
 CPharaoh::colors[] = {
@@ -51,7 +52,7 @@ draw()
 
   invert_x  = 0.0;
   invert_y  = ra;
-  invert_r  = 200*sqrt(10.0);
+  invert_r  = 200*std::sqrt(10.0);
   invert_rs = invert_r*invert_r;
 
   setForeground(CRGBName::toRGBA("black"));
@@ -70,7 +71,7 @@ draw()
 
   double height = (b_line - a_line);
   double radius = height/2.0;
-  double width  = radius*sqrt(2.0);
+  double width  = radius*std::sqrt(2.0);
 
   for (uint i = 0; i < 20; i++)
     generateCircle(xo + i*width,
@@ -163,8 +164,8 @@ void
 CPharaoh::
 invertCircle(double x, double y, double r, int color)
 {
-  double d = sqrt((x - invert_x)*(x - invert_x) +
-                  (y - invert_y)*(y - invert_y));
+  double d = std::sqrt((x - invert_x)*(x - invert_x) +
+                       (y - invert_y)*(y - invert_y));
 
   double x1 = x + (invert_x - x)*r/d;
   double y1 = y + (invert_y - y)*r/d;
@@ -174,7 +175,7 @@ invertCircle(double x, double y, double r, int color)
   invertPoint(&x1, &y1);
   invertPoint(&x2, &y2);
 
-  double r1 = sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1))/2.0;
+  double r1 = std::sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1))/2.0;
 
   setForeground(CRGBName::toRGBA(colors[color]));
 

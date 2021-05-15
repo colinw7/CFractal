@@ -2,8 +2,7 @@
 #include <CMathGen.h>
 
 CMandelbrot::
-CMandelbrot() :
- distance_(false), d_(0)
+CMandelbrot()
 {
 }
 

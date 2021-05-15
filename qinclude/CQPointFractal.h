@@ -8,6 +8,7 @@
 
 class CPointFractalCalc;
 class CQPointFractalRenderer;
+class CQColorsPalette;
 class QPainter;
 class QRubberBand;
 
@@ -44,32 +45,36 @@ class CQPointFractal : public QWidget {
 
   void redraw();
 
+  void setPalette(const QString &name);
+
  private:
   friend class CQPointFractalRenderer;
 
+  void setForeground(int color);
   void setForeground(const CRGBA &rgba);
 
   void drawPoint(int x, int y);
 
  private:
-  void paintEvent (QPaintEvent *);
-  void resizeEvent(QResizeEvent *);
+  void paintEvent (QPaintEvent *) override;
+  void resizeEvent(QResizeEvent *) override;
 
-  void mousePressEvent  (QMouseEvent *event);
-  void mouseMoveEvent   (QMouseEvent *event);
-  void mouseReleaseEvent(QMouseEvent *event);
+  void mousePressEvent  (QMouseEvent *event) override;
+  void mouseMoveEvent   (QMouseEvent *event) override;
+  void mouseReleaseEvent(QMouseEvent *event) override;
 
   void updateRubberband(const QPoint &p1, const QPoint &p2);
 
   void selectionNotify(const QPoint &p1, const QPoint &p2);
 
  private:
-  CQPointFractalRenderer *renderer_;
+  CQPointFractalRenderer* renderer_    { nullptr };
+  CQColorsPalette*        palette_     { nullptr };
   QImage                  qimage_;
-  bool                    threaded_;
-  bool                    redraw_;
-  QPainter               *painter_;
-  QRubberBand            *rubber_band_;
+  bool                    threaded_    { true };
+  bool                    redraw_      { true };
+  QPainter*               painter_     { nullptr };
+  QRubberBand*            rubber_band_ { nullptr };
   QPoint                  press_pos_;
 };
 

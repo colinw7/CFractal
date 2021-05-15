@@ -18,7 +18,7 @@ CIfs(CTurtle *turtle) :
 
   ClParserInst->init();
 
-  ClParserInst->setAngleType(CAngleType::Type::DEGREES);
+  ClParserInst->setAngleType(CANGLE_TYPE_DEGREES);
 }
 
 CIfs::
@@ -504,26 +504,26 @@ readControl(CFile &file)
         break;
       }
       case CIFS_DIRECTION_CONTROL_COMMAND: {
-        std::string str;
+        std::string str1;
         int         depth;
 
-        readString (line, &pos, str);
+        readString (line, &pos, str1);
         readInteger(line, &pos, &depth);
 
-        CIfsDirection *direction = new CIfsDirection(str, depth);
+        CIfsDirection *direction = new CIfsDirection(str1, depth);
 
         control_.addDirection(direction);
 
         break;
       }
       case CIFS_ANGLE_____CONTROL_COMMAND: {
-        std::string str;
+        std::string str1;
         int         depth;
 
-        readString (line, &pos, str);
+        readString (line, &pos, str1);
         readInteger(line, &pos, &depth);
 
-        CIfsAngle *angle = new CIfsAngle(str, depth);
+        CIfsAngle *angle = new CIfsAngle(str1, depth);
 
         control_.addAngle(angle);
 
