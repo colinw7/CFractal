@@ -26,8 +26,8 @@ CMandelbrot::
 initCalc(int /*pixel_xmin*/, int /*pixel_ymin*/, int /*pixel_xmax*/, int /*pixel_ymax*/,
          double xmin, double ymin, double xmax, double ymax, int max_iterations)
 {
-  save_x_.resize(max_iterations + 1);
-  save_y_.resize(max_iterations + 1);
+  save_x_.resize(size_t(max_iterations + 1));
+  save_y_.resize(size_t(max_iterations + 1));
 
   d_ = std::max(xmax - xmin, ymax - ymin)/4;
 }
@@ -36,8 +36,8 @@ int
 CMandelbrot::
 calc(double x, double y, int max_iterations) const
 {
-  save_x_.resize(max_iterations + 1);
-  save_y_.resize(max_iterations + 1);
+  save_x_.resize(size_t(max_iterations + 1));
+  save_y_.resize(size_t(max_iterations + 1));
 
   if (! distance_)
     return calc_iterations(x, y, max_iterations);
@@ -102,8 +102,8 @@ iterate(double x, double y, int max_iterations) const
 
     ++num_iterations;
 
-    save_x_[num_iterations] = zr_;
-    save_y_[num_iterations] = zi_;
+    save_x_[size_t(num_iterations)] = zr_;
+    save_y_[size_t(num_iterations)] = zi_;
   }
 
   return num_iterations;
@@ -119,8 +119,8 @@ distance(double, double, int iterations) const
   double y1 = 0;
 
   for (int i = 0; i < iterations; ++i) {
-    double x2 = 2*(save_x_[i]*x1 - save_y_[i]*y1) + 1;
-    double y2 = 2*(save_y_[i]*x1 + save_x_[i]*y1);
+    double x2 = 2*(save_x_[size_t(i)]*x1 - save_y_[size_t(i)]*y1) + 1;
+    double y2 = 2*(save_y_[size_t(i)]*x1 + save_x_[size_t(i)]*y1);
 
     x1 = x2;
     y1 = y2;

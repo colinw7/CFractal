@@ -3,6 +3,7 @@
 #include <CQColors.h>
 #include <CQColorsPalette.h>
 #include <CQUtil.h>
+#include <CQUtilRGBA.h>
 
 #include <QPainter>
 #include <QRubberBand>
@@ -27,7 +28,7 @@ class CQPointFractalRenderer : public CPointFractalRenderer {
   }
 
  private:
-  CQPointFractal *pf_;
+  CQPointFractal *pf_ { nullptr };
 };
 
 //------
@@ -202,7 +203,7 @@ CQPointFractal::
 paintEvent(QPaintEvent *)
 {
   if (qimage_.isNull())
-    resizeEvent(0);
+    resizeEvent(nullptr);
 
   if (redraw_) {
     QPainter painter(&qimage_);

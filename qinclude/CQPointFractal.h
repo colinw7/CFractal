@@ -21,7 +21,7 @@ class CQPointFractal : public QWidget {
   Q_PROPERTY(QRectF range      READ range      WRITE setRange     )
 
  public:
-  CQPointFractal(QWidget *parent = 0);
+  CQPointFractal(QWidget *parent = nullptr);
 
   virtual ~CQPointFractal();
 
